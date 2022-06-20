@@ -16,6 +16,7 @@
 #include "sphere.hpp"
 
 #include <iostream>
+#include "bvh.hpp"
 
 vec3 ray_color(const ray& r, const hittable& world, int depth)
 {
@@ -63,7 +64,7 @@ hittable_list random_scene()
     world.add(std::make_shared<sphere>(
         vec3{4, 1, 0}, 1.0, std::make_shared<metal>(vec3(0.7, 0.6, 0.5), 0.0)));
 
-    return world;
+    return static_cast<hittable_list>(std::make_shared<bvh_node>(world, 0, 1));;
 }
 
 int main()
